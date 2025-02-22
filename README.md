@@ -1,2 +1,2 @@
 # class BSW
- A classe BSW permite a modelagem de teor de água no coalescedor eletrostático em base as variáveis operacionais
+The BSW class allows mathematical simulation of the oil dewatering by electrostatic coalescence using semi-empirical models derived from population balance equation. Here, the water content at the outlet of the electrostatic coalescer (BS&Wo) is related to the fragmentation and aggregation rate coefficients of water drops, which are in turn related to operational settings of electro-coalescer (Temperature, flow rate of inlet, electric field applied electrodes) and free variables linked to the quality of the emulsion (oil and water density, oil viscosity, asphaltenes and resins concentration, so on. 
