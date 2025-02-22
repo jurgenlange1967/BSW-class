@@ -1,2 +1,2 @@
-# class BSW
+# Class BSW
 The BSW class allows mathematical simulation of oil dehydration by electrostatic coalescence using semi-empirical models derived from the population balance equation. Here, the water content at the outlet of the electrostatic coalescer (BS&Wo) is related to the water droplet fragmentation and aggregation coefficients, which in turn are related to the operating parameters of the electrocoalescer (temperature, inlet flow rate, electrodes applied to the electric field) and free variables linked to the emulsion quality (oil and water density, oil viscosity, asphaltene and resin concentration within water drops).
