@@ -284,6 +284,9 @@ class BSW:
                 self._data['Ee'] = self._data['Ee'].apply(self.divide_by_100)
                 self._data_train, self._data_test = np.split(self._data, [int((1 - cut) * len(self._data))])
                 self._data_test = self._data_test.reset_index(drop=True)
+                "Now the column No. Exp in self._data_test should be re-indexed"
+                for i in self._data_test.index:
+                    self._data_test.at[i, 'NoExp'] = i + 1
             else:
                 print('Please enter a csv file')
 
@@ -734,7 +737,7 @@ class BSW:
         plt.show()
 
     # function to predict values
-    def Predict(self, data=None, plot_exp_data=True):
+    def Predict(self, data=None, plot_exp_data=True, showErr=True):
         if data is None:
             data = self._data_train
 
@@ -747,18 +750,18 @@ class BSW:
                 self.my_plot_with_confidence_interval(self.counter_fig, self.BSWo_4(data, *self._p_opt),
                                                       data, 'Exp. data', 'Model - 3 (without API)', 0,
                                                       len(data['BS&Wo']) + 1, 0.0, max(data['BS&Wo']) + 0.5,
-                                                      True, 0.1, 0.8, True, 'upper center',
+                                                      True, 0.1, 0.8, showErr, 'upper center',
                                                       plot_exp_data)
 
             else:
                 self.my_plot_with_confidence_interval(self.counter_fig, self.BSWo_6(data, *self._p_opt),
                                                       data, 'Exp. data', 'Model - 3 (with API)', 0,
                                                       len(data['BS&Wo']) + 1, 0.0, max(data['BS&Wo']) + 0.5,
-                                                      True, 0.1, 0.8, True, 'upper center',
+                                                      True, 0.1, 0.8, showErr, 'upper center',
                                                       plot_exp_data)
         else:
-            print('!The data used as parameter in Predict() is empty. Please use a value for cut parameter (e.g. 0.1) '
-                  'in load_data() to obtain an array full')
+            print('!The data used as parameter in Predict() is empty. No plotting of results. Please use a value '
+                  'for cut parameter (e.g. 0.1) in load_data() to obtain an array full')
 
     # Kernel for sensitivity (Model 3 - without API) Data is not passed as a data_frame, if not as array
     @staticmethod
