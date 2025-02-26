@@ -9,8 +9,8 @@ first_simul.load_data('p-66-otra-forma-input-2-without-atypical-values-with-all-
 # fit the model to the loaded data. The optimization of parameters in the model is performed
 # without using restriction (see docs/documentation)
 first_simul.fit(with_restriction=False)
-# The method predict() shows the simulated and experimental data together confidence bands and 
-# mean prediction (see docs/documentation).
+# The method predict() shows the simulated and experimental data together with confidence bands and 
+# mean prediction of the model (see docs/documentation).
 first_simul.predict()
 # Shows a correlation matrix between parameters (see docs/documentation)
 first_simul.plot_correlation_matrix_with_heatmap()
