@@ -16,6 +16,6 @@ first_simul.predict()
 first_simul.plot_correlation_matrix_with_heatmap()
 # The method shows the all filtered data using the Kalman filter (see docs/documentation)
 first_simul.show_data_filtered()
-# The method is alternative one to the show_data_filtered. It shows the experimental data
+# The method is alternative to show_data_filtered(). It shows the experimental data
 # without the filtered data (see docs/documentation
 first_simul.show_only_experimental_data()
