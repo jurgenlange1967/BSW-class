@@ -1,5 +1,5 @@
 # BSW-class
-> This class allows the mathematical simulation of water content (BS&Wo) at the outlet of the electrostatic coalescer based on the operating conditions of the coalescer and free variables of the treated water/oil emulsion.
+> This class allows the mathematical simulation of water content (BS&Wo) at the outlet of the electrostatic coalescer based on its operating conditions and free variables of the treated water/oil emulsion.
 
 ## 📖 Overview
 This repository contains the source code for **BSW-class**, developed by **Jurgen Lange Bregado and Argimiro R. Secchi** at the **Laboratory of Software Development for Process Control and Optimization (LADES)**, affiliated with the **Programa de Engenharia Química (PEQ), Universidade Federal do Rio de Janeiro (UFRJ)**.
