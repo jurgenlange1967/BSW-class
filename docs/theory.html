@@ -1,0 +1,445 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Usage" href="usage.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Theory - Classe BSW 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/_static/override.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Classe BSW 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Classe BSW 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Theory</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/theory.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="theory">
+<h1>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h1>
+<section id="derivation-of-semi-empirical-models">
+<span id="derivationmodels"></span><h2>Derivation of semi-empirical models<a class="headerlink" href="#derivation-of-semi-empirical-models" title="Link to this heading">¶</a></h2>
+<p>The population balance equation with simultaneous aggregation and fragmentation Eq. <a class="reference internal" href="#equation-pbe">(3)</a>, for the special case where the constant total number of particles is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}{\frac{\partial n(v,t)}{\partial t} = \left( \frac{1}{2} \right)}\int_{0}^{v}{C(v^{'},{v - v}^{'})n(v^{'},t)n({v - v}^{'},t)d}v^{'} - n(v,t)\int_{0}^{\infty}{C\left( v,v^{'} \right)}n\left( v^{'},t \right)dv^{'}\\\end{split}\]</div>
+</div>
+<div class="math-wrapper docutils container" id="equation-pbe">
+<div class="math notranslate nohighlight" id="equation-pbe">
+<span class="eqno">(3)<a class="headerlink" href="#equation-pbe" title="Link to this equation">¶</a></span>\[+ 2\int_{v}^{\infty}{S\left( v^{'} \right)}n\left( v^{'},t \right)\Omega\left( v,v^{'} \right){dv}^{'} - S(v)n(v,t)\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\({S}\left({v}\right)\)</span> and <span class="math notranslate nohighlight">\({C}\left({v},{v}^\prime\right)\)</span> represent the rate coefficients of fragmentation and aggregation, respectively.
+The first-term in the equation is the formation rate of drops with volume <span class="math notranslate nohighlight">\({v}\)</span> formed during the coalescence. The second-term represents the dead rate of drops with that volume. The third-term  considers the formation rate
+of drops with volume <span class="math notranslate nohighlight">\({v}\)</span>, that could be formed during fragmentation by binary collisions.
+Here <span class="math notranslate nohighlight">\(\Omega\left({v},{v}^\prime\right)\)</span> represents the stoichiometric coefficient during that fragmentation. The fourth term is the diminution of formation rate with volume <span class="math notranslate nohighlight">\({v}\)</span> caused by auto-fragmentation.</p>
+<p>Using an long-time asymptotic solution in steady-state for Eq. <a class="reference internal" href="#equation-pbe">(3)</a>, it can be arrived that the drops number distribution with different volumes <span class="math notranslate nohighlight">\((n\left(v\right))\)</span> is as follows:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[n(v) = \left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v \right\}\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(\frac{2S}{C}\)</span> represents the total number of water drops in a given volume into coalescer. By definition <span class="math notranslate nohighlight">\({A}\)</span> is the average volume of water drops</p>
+<p>Now, considering the series <span class="math notranslate nohighlight">\(\sum_{i = 1}^{\infty}{n\left( v_{i} \right)v_{i} = \sum_{i = 1}^{\infty}{v_{i}\left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v_{i} \right\}}}\)</span>
+and solving continuously with integrals by parts, we get that:</p>
+<div class="math-wrapper docutils container" id="equation-pbesolved">
+<div class="math notranslate nohighlight" id="equation-pbesolved">
+<span class="eqno">(4)<a class="headerlink" href="#equation-pbesolved" title="Link to this equation">¶</a></span>\[\sum_{i = 0}^{\infty}{{n(v}_{i})v_{i}} \cong {A^{1/2}\left( \frac{2S}{C} \right)}^{1/2}\left\lbrack 1 + \left( \frac{AC}{2S} \right)^{1/2} \right\rbrack\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2} \right\}\]</div>
+</div>
+<p><span class="math notranslate nohighlight">\({BS\&amp;W}_{o}\)</span> can be considered as inversely proportional to the Eq. <a class="reference internal" href="#equation-pbesolved">(4)</a>, and therefore we obtain the first-term of Eq. <a class="reference internal" href="index.html#equation-bsw-and-sac">(1)</a></p>
+<p>The addition of a <span class="math notranslate nohighlight">\({API}\)</span> term in this equation is based on other models reported in literature. Thus, since drops fragmentation (<span class="math notranslate nohighlight">\({S}\)</span>) and coalescence rate (<span class="math notranslate nohighlight">\({C}\)</span>) are directly influenced by operating conditions
+(<span class="math notranslate nohighlight">\({T}\)</span>, <span class="math notranslate nohighlight">\({E_e}\)</span>, <span class="math notranslate nohighlight">\({Q_L}\)</span>, <span class="math notranslate nohighlight">\({K_p}\)</span>, …), it seems logical to define the ratio <span class="math notranslate nohighlight">\(\frac{2S}{C}\)</span> as a function of them. Thus, <span class="math notranslate nohighlight">\(\frac{2S}{AC}\)</span> is here defined as in Eq. <a class="reference internal" href="index.html#equation-sac">(2)</a>.</p>
+</section>
+<section id="estimation-of-confidence-bands-in-model-prediction">
+<span id="estimation-confidence-bands"></span><h2>Estimation of confidence bands in model prediction<a class="headerlink" href="#estimation-of-confidence-bands-in-model-prediction" title="Link to this heading">¶</a></h2>
+<p>The estimation of the confidence bands in model prediction was done using a Gaussian regression of the residuals using the  <a class="reference internal" href="#target-to-code2"><span class="std std-ref">GaussianProcessRegressor</span></a> function implemented in the <strong>sklearn.gaussian_process</strong> module in Python.
+Using this function, the mean value <span class="math notranslate nohighlight">\({Gauss}_{mean}\)</span> and standard deviation <span class="math notranslate nohighlight">\({Gauss}_{stdev}\)</span> of these residuals are determined. Then, the confidence interval at each i-th experimental point is given by: <span class="math notranslate nohighlight">\(y_{model}^i + {Gauss}_{mean} \mp 1.96\ {Gauss}_{stddev}\)</span>
+with a confidence level equal to 95%. The mean prediction values ​​of the models are given by  <span class="math notranslate nohighlight">\(y_{model}^i + {Gauss}_{mean}\)</span>.</p>
+<div class="highlight-python notranslate" id="target-to-code2"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_Confidence_Intervals</span><span class="p">(</span><span class="n">Model</span><span class="p">,</span> <span class="n">Data</span><span class="p">):</span>
+    <span class="n">m_func</span> <span class="o">=</span> <span class="n">Model</span>
+    <span class="n">y_gp</span> <span class="o">=</span> <span class="n">Data</span><span class="p">[</span><span class="s1">&#39;BS&amp;Wo&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">m_func</span>
+    <span class="n">noise_std</span> <span class="o">=</span> <span class="mf">0.15</span>  <span class="c1"># measurement noise level</span>
+    <span class="n">length_scale</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># the smoothness of the true function</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="p">,</span> <span class="n">length_scale_bounds</span><span class="o">=</span><span class="s2">&quot;fixed&quot;</span><span class="p">)</span>
+    <span class="n">gpr</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">noise_std</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Data</span><span class="p">[</span><span class="s1">&#39;NoExp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">gpr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y_gp</span><span class="p">)</span>
+
+    <span class="c1"># compute GP predictions</span>
+    <span class="n">y_mean_pred</span><span class="p">,</span> <span class="n">y_std_pred</span> <span class="o">=</span> <span class="n">gpr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y_mean_pred</span><span class="p">,</span> <span class="n">y_std_pred</span><span class="p">,</span> <span class="n">m_func</span>
+</pre></div>
+</div>
+</section>
+<section id="estimation-of-confidence-intervals-for-the-parameters">
+<span id="estimation-ci"></span><h2>Estimation of confidence intervals for the parameters<a class="headerlink" href="#estimation-of-confidence-intervals-for-the-parameters" title="Link to this heading">¶</a></h2>
+<p>The confidence interval for each parameter estimated by the model is calculated from the square root of two diagonal elements of the symmetric variance-covariance matrix <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> (<a class="reference internal" href="#figura6"><span class="std std-numref">Fig. 6</span></a>) .</p>
+<figure class="align-default" id="id1">
+<span id="figura6"></span><img alt="_images/figura6.jpg" src="_images/figura6.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Variance-covariance matrix of parameters in the model</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The elements of the matrix that lie along its main diagonal
+(<span class="math notranslate nohighlight">\(var(\widehat{\beta}_1)\)</span>, <span class="math notranslate nohighlight">\(var(\widehat{\beta}_2)\)</span> …) contain the variation of parameters in itself, while all the other elements that are off-diagonal (<span class="math notranslate nohighlight">\(covar(\widehat{\beta}_1,\widehat{\beta}_2)\)</span>, <span class="math notranslate nohighlight">\(covar(\widehat{\beta}_1,\widehat{\beta}_3)\)</span>…) contains
+information on covariances or correlations between parameters. The confidence intervals (<span class="math notranslate nohighlight">\(\mathrm{CI}\)</span>) with <span class="math notranslate nohighlight">\((1-\alpha) 100\%\)</span> confidence level for each parameter is calculated by the following expression:</p>
+<div class="math-wrapper docutils container" id="equation-ciparameters">
+<div class="math notranslate nohighlight" id="equation-ciparameters">
+<span class="eqno">(5)<a class="headerlink" href="#equation-ciparameters" title="Link to this equation">¶</a></span>\[\mathrm{CI} =  \sqrt{var(\widehat{\beta}_{i})}\ t_{(1 - \alpha)(N - k)}\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(\widehat{\beta}_i\)</span> is the optimized value of the parameter <span class="math notranslate nohighlight">\(\widehat{\beta_i}\)</span>. <span class="math notranslate nohighlight">\(var(\widehat{\beta}_i)\)</span> is the value on the diagonal of the variance-covariance matrix (<span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span>) for this parameter in question. <span class="math notranslate nohighlight">\(t_{(1 - \alpha)(N - k)}\)</span> is the input to the critical
+value ​​of the two-tailed <em>t</em>-student distribution with <span class="math notranslate nohighlight">\(N-k\)</span> degrees of freedom, where <span class="math notranslate nohighlight">\(N\)</span> is the number of experimental points and <span class="math notranslate nohighlight">\(k\)</span> is the number of optimized parameters in the regression of the model.</p>
+</section>
+<section id="fitting-criteria-and-statistics">
+<span id="fittingcriteria"></span><h2>Fitting criteria and statistics<a class="headerlink" href="#fitting-criteria-and-statistics" title="Link to this heading">¶</a></h2>
+<p>To estimate the parameters in the model was used the minimization of the mean square of differences between experimental values of <span class="math notranslate nohighlight">\({BS\&amp; W}_{o}\)</span> and those calculated by the model (Eq. <a class="reference internal" href="#equation-ff">(6)</a>). The Newton method with trust region (<strong>trf</strong>) function will be used to minimize <span class="math notranslate nohighlight">\(FF\)</span>. <strong>trf</strong> is a robust approach for convergence of estimated parameters regardless of how good the initial guess is.
+It is appropriately called a model trust region approach in that the step to a new iterate is obtained by minimizing a local quadratic model to the objective function over a restricted ellipsoidal region centered about the current iterate. The diameter of this region is expanded and contracted in a controlled way based upon how well the local model predicts behavior of the objective function.
+It is possible to control the iteration in this way so that convergence is forced from any starting value assuming reasonable conditions on the objective function</p>
+<div class="math-wrapper docutils container" id="equation-ff">
+<div class="math notranslate nohighlight" id="equation-ff">
+<span class="eqno">(6)<a class="headerlink" href="#equation-ff" title="Link to this equation">¶</a></span>\[FF = \frac{1}{N}\sqrt{\sum_{i = 1}^{N}{(y_{exp}^{i} - y_{model}^{i})}^{2}} = \frac{1}{N}\sqrt{\sum_{i = 1}^{N}(e^i)^{2}}\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(N\)</span> is the total number of experimental points; <span class="math notranslate nohighlight">\(y_{exp}^{i}\)</span> is the value of <span class="math notranslate nohighlight">\(i\)</span>-th experimental point of <span class="math notranslate nohighlight">\({BS\&amp; W}_{o}\)</span>; <span class="math notranslate nohighlight">\(y_{model}^{i}\)</span> is the value of  <span class="math notranslate nohighlight">\(i\)</span>-th point predicted by the model. <span class="math notranslate nohighlight">\(e_i\)</span> is the residual value between predicted result by the model and experimental one (<span class="math notranslate nohighlight">\({e^i=y}_{exp}^i-y_{model}^i\)</span>)</p>
+<p>To have a criterion about de ability of the model in the prediction and explain the experimental data of <span class="math notranslate nohighlight">\({BS\&amp; W}_{o}\)</span> with the input variables, the determination coefficient was used (<span class="math notranslate nohighlight">\(R^{2}\)</span>, Eq. <a class="reference internal" href="#equation-r2">(7)</a>).</p>
+<div class="math-wrapper docutils container" id="equation-r2">
+<div class="math notranslate nohighlight" id="equation-r2">
+<span class="eqno">(7)<a class="headerlink" href="#equation-r2" title="Link to this equation">¶</a></span>\[R^{2} = 1 - \frac{\sum_{i = 1}^{N}{(e^i)}^{2}}{\sum_{i = 1}^{N}{(y_{exp}^{i} - {\overline{y}}_{exp})}^{2}}\]</div>
+</div>
+<p>Here <span class="math notranslate nohighlight">\({\overline{y}}_{exp}\)</span> is the mean value of experimental <span class="math notranslate nohighlight">\({BS\&amp; W}_{o}\)</span> and equal to <span class="math notranslate nohighlight">\(\frac{\sum_{i = 1}^{N}y_{exp}^{i}}{N}\)</span>. In general, if <span class="math notranslate nohighlight">\(R^{2}\)</span> is closer to 1 and <span class="math notranslate nohighlight">\(FF\)</span> is closer to zero indicates that the model fit very well the data.</p>
+<p>An interesting output of <span class="math notranslate nohighlight">\(R^{2}\)</span> by this class is the adjusted coefficient of determination, also known as adjusted R-squared or R bar squared (Eq. <a class="reference internal" href="#equation-r2bar">(8)</a>), which is a statistical measure that shows how well a regression equation fits data. It is used to determine the proportion of variation that is explained by the regression line. The adjusted coefficient of determination is used to include a more appropriate number of variables in a data set.
+It only increases if a new data point improves the regression more than would be expected by chance. The adjusted coefficient of determination (<span class="math notranslate nohighlight">\({\overline{R}}^{2}\)</span>) is always less than or equal to <span class="math notranslate nohighlight">\(R^{2}\)</span>.</p>
+<div class="math-wrapper docutils container" id="equation-r2bar">
+<div class="math notranslate nohighlight" id="equation-r2bar">
+<span class="eqno">(8)<a class="headerlink" href="#equation-r2bar" title="Link to this equation">¶</a></span>\[{\overline{R}}^{2} = 1 - (1 - R^{2})\left\lbrack \frac{n - 1}{n - (k + 1)} \right\rbrack\]</div>
+</div>
+<p>A test used here to see how well the model fits the data is the chi-square goodness-of-fit test or Pearson’s chi-square test. Here estimated chi-square (Eq. <a class="reference internal" href="#equation-chi2">(9)</a>) is given by:</p>
+<div class="math-wrapper docutils container" id="equation-chi2">
+<div class="math notranslate nohighlight" id="equation-chi2">
+<span class="eqno">(9)<a class="headerlink" href="#equation-chi2" title="Link to this equation">¶</a></span>\[\chi^{2} = \sum_{i = 1}^{N}\frac{{(O_{i} - E_{i})}^{2}}{E_{i}}\]</div>
+</div>
+<p>and then, the above test statistic is compared to a theoretical value from the <a class="reference external" href="https://www.scribbr.com/statistics/chi-square-distribution-table/">Chi-square distribution</a>. The theoretical value depends on both the alpha value and the degrees of freedom (<span class="math notranslate nohighlight">\(N - k\)</span>) of data. If  estimated <span class="math notranslate nohighlight">\(\chi^{2}\)</span> by Eq. <a class="reference internal" href="#equation-chi2">(9)</a> is lower than that tabulated by the distribution, then is accepted of null-hypothesis. That is, the model satisfactorily fit the experimental data.
+In addition, models having lower values of <span class="math notranslate nohighlight">\(\chi^{2}\)</span> represents better models.</p>
+</section>
+<section id="condition-number-and-the-parametric-correlation-matrix">
+<span id="condition-number-and-parmcorrmatrix"></span><h2>Condition number and the parametric correlation matrix<a class="headerlink" href="#condition-number-and-the-parametric-correlation-matrix" title="Link to this heading">¶</a></h2>
+<p>The estimation of the condition number (<span class="math notranslate nohighlight">\(\kappa\)</span>) of the matrix <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> can indicate whether there is too much dependence between the parameters in the model, and whether the number of parameters needs to be reduced in the model. For example, a high <span class="math notranslate nohighlight">\(\kappa\)</span> value
+indicates that we should be concerned about redundant or correlated parameters, which can cause unreliable covariance matrices and confidence intervals, and in some cases, poor quality fits. Another fact is that the higher the <span class="math notranslate nohighlight">\(\kappa\)</span>, the closer the variance-covariance matrix of the parameters is to the
+singularity (or determinant equal to zero), making its inversion process impossible. In general, the lower <span class="math notranslate nohighlight">\(\kappa\)</span> value, the smaller the confidence interval values <span class="math notranslate nohighlight">\(\mathrm{CI}\)</span> for estimated parameters.
+The calculation of <span class="math notranslate nohighlight">\(\kappa\)</span> can be performed using the <strong>linalg.cond</strong> function from the <strong>numpy</strong> Python module. Mathematically, <span class="math notranslate nohighlight">\(\kappa\)</span> is calculated as follows:</p>
+<div class="math-wrapper docutils container" id="equation-kappa">
+<div class="math notranslate nohighlight" id="equation-kappa">
+<span class="eqno">(10)<a class="headerlink" href="#equation-kappa" title="Link to this equation">¶</a></span>\[\kappa = \frac{S_{\max}}{S_{\min}} = \frac{\sqrt{\lambda_{\max}}}{\sqrt{\lambda_{\min}}}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_{max}\)</span> and <span class="math notranslate nohighlight">\(\lambda_{min}\)</span> are the maximum and minimum eigenvalues, whereas <span class="math notranslate nohighlight">\(S_{max}\)</span>, <span class="math notranslate nohighlight">\(S_{min}\)</span> are the singular values of the matrix <span class="math notranslate nohighlight">\(\sigma^{\hat{\beta}}\)</span>, respectively.</p>
+<p>The eigenvalues of <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> is obtained from:</p>
+<div class="math-wrapper docutils container" id="equation-eigenvalues">
+<div class="math notranslate nohighlight" id="equation-eigenvalues">
+<span class="eqno">(11)<a class="headerlink" href="#equation-eigenvalues" title="Link to this equation">¶</a></span>\[det\left\lbrack \left( V^{\widehat{\beta}} \right)\left( V^{\widehat{\beta}} \right)^{T} - \ \lambda I \right\rbrack = 0\]</div>
+</div>
+<p>From <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> is possible to obtain the correlation matrix using the following expression:</p>
+<div class="math-wrapper docutils container" id="equation-correlmatrix">
+<div class="math notranslate nohighlight" id="equation-correlmatrix">
+<span class="eqno">(12)<a class="headerlink" href="#equation-correlmatrix" title="Link to this equation">¶</a></span>\[R_{{i}{j}} = \frac{covar(\widehat{\beta}_i,\widehat{\beta}_j)}{var(\widehat{\beta}_i) var(\widehat{\beta}_j)}\]</div>
+</div>
+<p>Unlike <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> matrix, the elements (<span class="math notranslate nohighlight">\(R_{{i}{j}}\)</span>) of such matrix indicate in a range from 0 to 1 and in sign how the model parameters are correlated.
+That is, it measures the strength and direction of the relationships between two or more parameters</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="usage.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Usage</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Jurgen Lange Bregado
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Theory</a><ul>
+<li><a class="reference internal" href="#derivation-of-semi-empirical-models">Derivation of semi-empirical models</a></li>
+<li><a class="reference internal" href="#estimation-of-confidence-bands-in-model-prediction">Estimation of confidence bands in model prediction</a></li>
+<li><a class="reference internal" href="#estimation-of-confidence-intervals-for-the-parameters">Estimation of confidence intervals for the parameters</a></li>
+<li><a class="reference internal" href="#fitting-criteria-and-statistics">Fitting criteria and statistics</a></li>
+<li><a class="reference internal" href="#condition-number-and-the-parametric-correlation-matrix">Condition number and the parametric correlation matrix</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
