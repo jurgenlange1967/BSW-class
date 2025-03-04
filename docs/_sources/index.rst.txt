@@ -1,0 +1,31 @@
+
+.. BSW-class documentation master file, created by
+   sphinx-quickstart on Tue Feb 18 20:43:03 2025.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to BSW class documentation!
+=======================================
+
+The  **BSW-class** aims to simulate the water content in oil at the outlet (:math:`{BS\&W}_{o}`) of an electrostatic coalescer based on the operating variables: 
+Temperature (:math:`T`), electric field (:math:`E_e`), liquid inlet flow rate (:math:`Q_L`) and free as: ratio between oil viscosity and the difference between the oil and water phases (:math:`K_p`), 
+gravity of oil (:math:`API`), concentration of asphaltenes and resins in the emulsion (:math:`C(asf + resinas)`). The :ref:`phenomenologic model <DerivationModels>` used is as follows: 
+
+.. math:: {BS\&W}_{o}=\frac{C_1exp\left(\frac{2S}{AC}\right)^{1/2}}{\left(\frac{2S}{AC}\right)^{1/2}\left\{1+\left(\frac{AC}{2S}\right)^{1/2}\right\}}+\beta_{6}API
+  :label: bsw_and_sac
+.. math:: \frac{2S}{AC} = \beta_{1}T - \beta_{2}{E_{e}}^{2} - \beta_{3}C(asf + resinas)\ {- \beta}_{4}Q_{L} - \beta_{5}K_{p}
+  :label: sac
+
+The nonlinear optimization of parameters (:math:`\beta_{1}`, :math:`\beta_{2}`, :math:`\beta_{3}`, :math:`\beta_{4}`, :math:`\beta_{5}`, :math:`\beta_{6}`) in the equations :eq:`bsw_and_sac` e :eq:`sac` 
+against real data will allow to control and predict the coalescence process.  The version 0.1 only allows prediction of coalescence in *offline mode*  
+
+
+.. note::
+ This project is under active development. 
+
+.. toctree::
+   usage
+   theory
+   :maxdepth: 2
+   :caption: Table of contents:
+

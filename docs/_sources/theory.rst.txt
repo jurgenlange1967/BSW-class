@@ -1,0 +1,153 @@
+Theory
+======
+
+.. _DerivationModels:
+
+Derivation of semi-empirical models
+-----------------------------------
+
+The population balance equation with simultaneous aggregation and fragmentation Eq. :eq:`pbe`, for the special case where the constant total number of particles is:
+
+.. math:: {\frac{\partial n(v,t)}{\partial t} = \left( \frac{1}{2} \right)}\int_{0}^{v}{C(v^{'},{v - v}^{'})n(v^{'},t)n({v - v}^{'},t)d}v^{'} - n(v,t)\int_{0}^{\infty}{C\left( v,v^{'} \right)}n\left( v^{'},t \right)dv^{'}\\ 
+.. math::   + 2\int_{v}^{\infty}{S\left( v^{'} \right)}n\left( v^{'},t \right)\Omega\left( v,v^{'} \right){dv}^{'} - S(v)n(v,t)
+  :label: pbe
+
+Where :math:`{S}\left({v}\right)` and :math:`{C}\left({v},{v}^\prime\right)` represent the rate coefficients of fragmentation and aggregation, respectively. 
+The first-term in the equation is the formation rate of drops with volume :math:`{v}` formed during the coalescence. The second-term represents the dead rate of drops with that volume. The third-term  considers the formation rate 
+of drops with volume :math:`{v}`, that could be formed during fragmentation by binary collisions.
+Here :math:`\Omega\left({v},{v}^\prime\right)` represents the stoichiometric coefficient during that fragmentation. The fourth term is the diminution of formation rate with volume :math:`{v}` caused by auto-fragmentation. 
+
+Using an long-time asymptotic solution in steady-state for Eq. :eq:`pbe`, it can be arrived that the drops number distribution with different volumes :math:`(n\left(v\right))` is as follows:
+
+.. math:: n(v) = \left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v \right\}
+
+Where :math:`\frac{2S}{C}` represents the total number of water drops in a given volume into coalescer. By definition :math:`{A}` is the average volume of water drops
+
+Now, considering the series :math:`\sum_{i = 1}^{\infty}{n\left( v_{i} \right)v_{i} = \sum_{i = 1}^{\infty}{v_{i}\left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v_{i} \right\}}}`
+and solving continuously with integrals by parts, we get that:
+
+.. math:: \sum_{i = 0}^{\infty}{{n(v}_{i})v_{i}} \cong {A^{1/2}\left( \frac{2S}{C} \right)}^{1/2}\left\lbrack 1 + \left( \frac{AC}{2S} \right)^{1/2} \right\rbrack\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2} \right\}
+  :label: pbesolved
+
+:math:`{BS\&W}_{o}` can be considered as inversely proportional to the Eq. :eq:`pbesolved`, and therefore we obtain the first-term of Eq. :eq:`bsw_and_sac`
+
+The addition of a :math:`{API}` term in this equation is based on other models reported in literature. Thus, since drops fragmentation (:math:`{S}`) and coalescence rate (:math:`{C}`) are directly influenced by operating conditions 
+(:math:`{T}`, :math:`{E_e}`, :math:`{Q_L}`, :math:`{K_p}`, ...), it seems logical to define the ratio :math:`\frac{2S}{C}` as a function of them. Thus, :math:`\frac{2S}{AC}` is here defined as in Eq. :eq:`sac`.
+
+
+.. _Estimation confidence bands:
+
+Estimation of confidence bands in model prediction
+---------------------------------------------------
+
+The estimation of the confidence bands in model prediction was done using a Gaussian regression of the residuals using the  :ref:`GaussianProcessRegressor <target to code2>` function implemented in the **sklearn.gaussian\_process** module in Python. 
+Using this function, the mean value :math:`{Gauss}_{mean}` and standard deviation :math:`{Gauss}_{stdev}` of these residuals are determined. Then, the confidence interval at each i-th experimental point is given by: :math:`y_{model}^i + {Gauss}_{mean} \mp 1.96\ {Gauss}_{stddev}` 
+with a confidence level equal to 95%. The mean prediction values ​​of the models are given by  :math:`y_{model}^i + {Gauss}_{mean}`.
+
+.. _target to code2:
+
+.. code-block:: python
+
+    def calculate_Confidence_Intervals(Model, Data):
+        m_func = Model
+        y_gp = Data['BS&Wo'] - m_func
+        noise_std = 0.15  # measurement noise level
+        length_scale = 6  # the smoothness of the true function
+        kernel = RBF(length_scale, length_scale_bounds="fixed")
+        gpr = GaussianProcessRegressor(kernel=kernel, alpha=noise_std ** 2)
+        x = Data['NoExp'].to_numpy()
+        gpr.fit(x.reshape(-1, 1), y_gp)
+
+        # compute GP predictions
+        y_mean_pred, y_std_pred = gpr.predict(x.reshape(-1, 1), return_std=True)
+        return y_mean_pred, y_std_pred, m_func
+
+
+.. _Estimation CI:
+
+Estimation of confidence intervals for the parameters
+------------------------------------------------------
+The confidence interval for each parameter estimated by the model is calculated from the square root of two diagonal elements of the symmetric variance-covariance matrix :math:`V^{\hat{\beta}}` (:numref:`figura6`) . 
+
+.. _figura6:
+
+.. figure:: ./figura6.jpg
+
+  Variance-covariance matrix of parameters in the model
+
+The elements of the matrix that lie along its main diagonal 
+(:math:`var(\widehat{\beta}_1)`, :math:`var(\widehat{\beta}_2)` ...) contain the variation of parameters in itself, while all the other elements that are off-diagonal (:math:`covar(\widehat{\beta}_1,\widehat{\beta}_2)`, :math:`covar(\widehat{\beta}_1,\widehat{\beta}_3)`...) contains 
+information on covariances or correlations between parameters. The confidence intervals (:math:`\mathrm{CI}`) with :math:`(1-\alpha) 100\%` confidence level for each parameter is calculated by the following expression:
+
+.. math:: \mathrm{CI} =  \sqrt{var(\widehat{\beta}_{i})}\ t_{(1 - \alpha)(N - k)}
+  :label: CIparameters
+
+Where :math:`\widehat{\beta}_i` is the optimized value of the parameter :math:`\widehat{\beta_i}`. :math:`var(\widehat{\beta}_i)` is the value on the diagonal of the variance-covariance matrix (:math:`V^{\hat{\beta}}`) for this parameter in question. :math:`t_{(1 - \alpha)(N - k)}` is the input to the critical 
+value ​​of the two-tailed *t*-student distribution with :math:`N-k` degrees of freedom, where :math:`N` is the number of experimental points and :math:`k` is the number of optimized parameters in the regression of the model.
+
+
+.. _fittingcriteria:
+
+Fitting criteria and statistics
+-------------------------------
+
+To estimate the parameters in the model was used the minimization of the mean square of differences between experimental values of :math:`{BS\& W}_{o}` and those calculated by the model (Eq. :eq:`FF`). The Newton method with trust region (**trf**) function will be used to minimize :math:`FF`. **trf** is a robust approach for convergence of estimated parameters regardless of how good the initial guess is. 
+It is appropriately called a model trust region approach in that the step to a new iterate is obtained by minimizing a local quadratic model to the objective function over a restricted ellipsoidal region centered about the current iterate. The diameter of this region is expanded and contracted in a controlled way based upon how well the local model predicts behavior of the objective function. 
+It is possible to control the iteration in this way so that convergence is forced from any starting value assuming reasonable conditions on the objective function
+
+.. math:: FF = \frac{1}{N}\sqrt{\sum_{i = 1}^{N}{(y_{exp}^{i} - y_{model}^{i})}^{2}} = \frac{1}{N}\sqrt{\sum_{i = 1}^{N}(e^i)^{2}}
+  :label: FF
+
+Where :math:`N` is the total number of experimental points; :math:`y_{exp}^{i}` is the value of :math:`i`-th experimental point of :math:`{BS\& W}_{o}`; :math:`y_{model}^{i}` is the value of  :math:`i`-th point predicted by the model. :math:`e_i` is the residual value between predicted result by the model and experimental one (:math:`{e^i=y}_{exp}^i-y_{model}^i`)
+
+To have a criterion about de ability of the model in the prediction and explain the experimental data of :math:`{BS\& W}_{o}` with the input variables, the determination coefficient was used (:math:`R^{2}`, Eq. :eq:`R2`).
+
+.. math:: R^{2} = 1 - \frac{\sum_{i = 1}^{N}{(e^i)}^{2}}{\sum_{i = 1}^{N}{(y_{exp}^{i} - {\overline{y}}_{exp})}^{2}}
+  :label: R2
+
+Here :math:`{\overline{y}}_{exp}` is the mean value of experimental :math:`{BS\& W}_{o}` and equal to :math:`\frac{\sum_{i = 1}^{N}y_{exp}^{i}}{N}`. In general, if :math:`R^{2}` is closer to 1 and :math:`FF` is closer to zero indicates that the model fit very well the data. 
+
+An interesting output of :math:`R^{2}` by this class is the adjusted coefficient of determination, also known as adjusted R-squared or R bar squared (Eq. :eq:`R2bar`), which is a statistical measure that shows how well a regression equation fits data. It is used to determine the proportion of variation that is explained by the regression line. The adjusted coefficient of determination is used to include a more appropriate number of variables in a data set.
+It only increases if a new data point improves the regression more than would be expected by chance. The adjusted coefficient of determination (:math:`{\overline{R}}^{2}`) is always less than or equal to :math:`R^{2}`. 
+
+.. math:: {\overline{R}}^{2} = 1 - (1 - R^{2})\left\lbrack \frac{n - 1}{n - (k + 1)} \right\rbrack
+  :label: R2bar
+
+
+A test used here to see how well the model fits the data is the chi-square goodness-of-fit test or Pearson's chi-square test. Here estimated chi-square (Eq. :eq:`chi2`) is given by:
+
+.. math:: \chi^{2} = \sum_{i = 1}^{N}\frac{{(O_{i} - E_{i})}^{2}}{E_{i}}
+   :label: chi2
+
+and then, the above test statistic is compared to a theoretical value from the `Chi-square distribution <https://www.scribbr.com/statistics/chi-square-distribution-table/>`_. The theoretical value depends on both the alpha value and the degrees of freedom (:math:`N - k`) of data. If  estimated :math:`\chi^{2}` by Eq. :eq:`chi2` is lower than that tabulated by the distribution, then is accepted of null-hypothesis. That is, the model satisfactorily fit the experimental data. 
+In addition, models having lower values of :math:`\chi^{2}` represents better models.
+
+
+
+.. _Condition number and parmcorrmatrix:
+
+Condition number and the parametric correlation matrix
+-------------------------------------------------------
+
+The estimation of the condition number (:math:`\kappa`) of the matrix :math:`V^{\hat{\beta}}` can indicate whether there is too much dependence between the parameters in the model, and whether the number of parameters needs to be reduced in the model. For example, a high :math:`\kappa` value 
+indicates that we should be concerned about redundant or correlated parameters, which can cause unreliable covariance matrices and confidence intervals, and in some cases, poor quality fits. Another fact is that the higher the :math:`\kappa`, the closer the variance-covariance matrix of the parameters is to the 
+singularity (or determinant equal to zero), making its inversion process impossible. In general, the lower :math:`\kappa` value, the smaller the confidence interval values :math:`\mathrm{CI}` for estimated parameters.
+The calculation of :math:`\kappa` can be performed using the **linalg.cond** function from the **numpy** Python module. Mathematically, :math:`\kappa` is calculated as follows:
+
+.. math:: \kappa = \frac{S_{\max}}{S_{\min}} = \frac{\sqrt{\lambda_{\max}}}{\sqrt{\lambda_{\min}}}
+  :label: kappa
+
+where :math:`\lambda_{max}` and :math:`\lambda_{min}` are the maximum and minimum eigenvalues, whereas :math:`S_{max}`, :math:`S_{min}` are the singular values of the matrix :math:`\sigma^{\hat{\beta}}`, respectively.
+
+The eigenvalues of :math:`V^{\hat{\beta}}` is obtained from:
+
+.. math:: det\left\lbrack \left( V^{\widehat{\beta}} \right)\left( V^{\widehat{\beta}} \right)^{T} - \ \lambda I \right\rbrack = 0
+  :label: eigenvalues
+
+From :math:`V^{\hat{\beta}}` is possible to obtain the correlation matrix using the following expression:
+
+.. math:: R_{{i}{j}} = \frac{covar(\widehat{\beta}_i,\widehat{\beta}_j)}{var(\widehat{\beta}_i) var(\widehat{\beta}_j)}
+  :label: correlmatrix
+
+Unlike :math:`V^{\hat{\beta}}` matrix, the elements (:math:`R_{{i}{j}}`) of such matrix indicate in a range from 0 to 1 and in sign how the model parameters are correlated. 
+That is, it measures the strength and direction of the relationships between two or more parameters
