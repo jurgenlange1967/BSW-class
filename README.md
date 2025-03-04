@@ -38,7 +38,7 @@ sudo apt-get install python3.9
    ```bash
    python main.py
    ```
-
+**For a detailed documentation visit: https://jurgenlange1967.github.io/BSW-class/ **
 
 ## 📂 Repository Structure
 ```
