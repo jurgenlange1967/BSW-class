@@ -247,7 +247,7 @@
 <h1>Theory<a class="headerlink" href="#theory" title="Link to this heading">¶</a></h1>
 <section id="derivation-of-semi-empirical-models">
 <span id="derivationmodels"></span><h2>Derivation of semi-empirical models<a class="headerlink" href="#derivation-of-semi-empirical-models" title="Link to this heading">¶</a></h2>
-<p>The population balance equation with simultaneous aggregation and fragmentation Eq. <a class="reference internal" href="#equation-pbe">(3)</a>, for the special case where the constant total number of particles is:</p>
+<p>The population balance equation with simultaneous aggregation and fragmentation Eq. <a class="reference internal" href="#equation-pbe">(3)</a> for the special case where the constant total number of particles is:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}{\frac{\partial n(v,t)}{\partial t} = \left( \frac{1}{2} \right)}\int_{0}^{v}{C(v^{'},{v - v}^{'})n(v^{'},t)n({v - v}^{'},t)d}v^{'} - n(v,t)\int_{0}^{\infty}{C\left( v,v^{'} \right)}n\left( v^{'},t \right)dv^{'}\\\end{split}\]</div>
@@ -265,7 +265,7 @@ Here <span class="math notranslate nohighlight">\(\Omega\left({v},{v}^\prime\rig
 <div class="math notranslate nohighlight">
 \[n(v) = \left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v \right\}\]</div>
 </div>
-<p>Where <span class="math notranslate nohighlight">\(\frac{2S}{C}\)</span> represents the total number of water drops in a given volume into coalescer. By definition <span class="math notranslate nohighlight">\({A}\)</span> is the average volume of water drops</p>
+<p>Where <span class="math notranslate nohighlight">\(\frac{2S}{C}\)</span> represents the total number of water drops in a given volume into coalescer. By definition <span class="math notranslate nohighlight">\({A}\)</span> is the average volume of water drops.</p>
 <p>Now, considering the series <span class="math notranslate nohighlight">\(\sum_{i = 1}^{\infty}{n\left( v_{i} \right)v_{i} = \sum_{i = 1}^{\infty}{v_{i}\left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v_{i} \right\}}}\)</span>
 and solving continuously with integrals by parts, we get that:</p>
 <div class="math-wrapper docutils container" id="equation-pbesolved">
@@ -278,8 +278,8 @@ and solving continuously with integrals by parts, we get that:</p>
 </section>
 <section id="estimation-of-confidence-bands-in-model-prediction">
 <span id="estimation-confidence-bands"></span><h2>Estimation of confidence bands in model prediction<a class="headerlink" href="#estimation-of-confidence-bands-in-model-prediction" title="Link to this heading">¶</a></h2>
-<p>The estimation of the confidence bands in model prediction was done using a Gaussian regression of the residuals using the  <a class="reference internal" href="#target-to-code2"><span class="std std-ref">GaussianProcessRegressor</span></a> function implemented in the <strong>sklearn.gaussian_process</strong> module in Python.
-Using this function, the mean value <span class="math notranslate nohighlight">\({Gauss}_{mean}\)</span> and standard deviation <span class="math notranslate nohighlight">\({Gauss}_{stdev}\)</span> of these residuals are determined. Then, the confidence interval at each i-th experimental point is given by: <span class="math notranslate nohighlight">\(y_{model}^i + {Gauss}_{mean} \mp 1.96\ {Gauss}_{stddev}\)</span>
+<p>The estimation of the confidence bands during model prediction was done using a Gaussian regression of the residuals with the  <a class="reference internal" href="#target-to-code2"><span class="std std-ref">GaussianProcessRegressor</span></a> function implemented in the <strong>sklearn.gaussian_process</strong> module in Python.
+By means of this function, the mean value <span class="math notranslate nohighlight">\({Gauss}_{mean}\)</span> and standard deviation <span class="math notranslate nohighlight">\({Gauss}_{stdev}\)</span> of the residuals were determined. Then, the confidence interval at each i-th experimental point is given by: <span class="math notranslate nohighlight">\(y_{model}^i + {Gauss}_{mean} \mp 1.96\ {Gauss}_{stddev}\)</span>
 with a confidence level equal to 95%. The mean prediction values ​​of the models are given by  <span class="math notranslate nohighlight">\(y_{model}^i + {Gauss}_{mean}\)</span>.</p>
 <div class="highlight-python notranslate" id="target-to-code2"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_Confidence_Intervals</span><span class="p">(</span><span class="n">Model</span><span class="p">,</span> <span class="n">Data</span><span class="p">):</span>
     <span class="n">m_func</span> <span class="o">=</span> <span class="n">Model</span>
@@ -300,10 +300,10 @@ with a confidence level equal to 95%. The mean prediction values ​​of the mo
 <section id="estimation-of-confidence-intervals-for-the-parameters">
 <span id="estimation-ci"></span><h2>Estimation of confidence intervals for the parameters<a class="headerlink" href="#estimation-of-confidence-intervals-for-the-parameters" title="Link to this heading">¶</a></h2>
 <p>The confidence interval for each parameter estimated by the model is calculated from the square root of two diagonal elements of the symmetric variance-covariance matrix <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> (<a class="reference internal" href="#figura6"><span class="std std-numref">Fig. 6</span></a>) .</p>
-<figure class="align-default" id="id1">
+<figure class="align-default" id="id2">
 <span id="figura6"></span><img alt="_images/figura6.jpg" src="_images/figura6.jpg" />
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Variance-covariance matrix of parameters in the model</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Variance-covariance matrix of parameters in the model</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The elements of the matrix that lie along its main diagonal
@@ -318,7 +318,7 @@ value ​​of the two-tailed <em>t</em>-student distribution with <span class="
 </section>
 <section id="fitting-criteria-and-statistics">
 <span id="fittingcriteria"></span><h2>Fitting criteria and statistics<a class="headerlink" href="#fitting-criteria-and-statistics" title="Link to this heading">¶</a></h2>
-<p>To estimate the parameters in the model was used the minimization of the mean square of differences between experimental values of <span class="math notranslate nohighlight">\({BS\&amp; W}_{o}\)</span> and those calculated by the model (Eq. <a class="reference internal" href="#equation-ff">(6)</a>). The Newton method with trust region (<strong>trf</strong>) function will be used to minimize <span class="math notranslate nohighlight">\(FF\)</span>. <strong>trf</strong> is a robust approach for convergence of estimated parameters regardless of how good the initial guess is.
+<p>In order to estimate the parameters in the model was used the minimization of mean square error between predicted and observed values (Eq. <a class="reference internal" href="#equation-ff">(6)</a>). The Newton method with trust region (<strong>trf</strong>) function is used by default to minimize <span class="math notranslate nohighlight">\(FF\)</span> in the <a class="reference internal" href="usage.html#fitting-section"><span class="std std-ref">fitting process</span></a>. <strong>trf</strong> is a robust approach for convergence of estimated parameters regardless of how good the initial guess is.
 It is appropriately called a model trust region approach in that the step to a new iterate is obtained by minimizing a local quadratic model to the objective function over a restricted ellipsoidal region centered about the current iterate. The diameter of this region is expanded and contracted in a controlled way based upon how well the local model predicts behavior of the objective function.
 It is possible to control the iteration in this way so that convergence is forced from any starting value assuming reasonable conditions on the objective function</p>
 <div class="math-wrapper docutils container" id="equation-ff">
@@ -343,8 +343,26 @@ It only increases if a new data point improves the regression more than would be
 <div class="math notranslate nohighlight" id="equation-chi2">
 <span class="eqno">(9)<a class="headerlink" href="#equation-chi2" title="Link to this equation">¶</a></span>\[\chi^{2} = \sum_{i = 1}^{N}\frac{{(O_{i} - E_{i})}^{2}}{E_{i}}\]</div>
 </div>
-<p>and then, the above test statistic is compared to a theoretical value from the <a class="reference external" href="https://www.scribbr.com/statistics/chi-square-distribution-table/">Chi-square distribution</a>. The theoretical value depends on both the alpha value and the degrees of freedom (<span class="math notranslate nohighlight">\(N - k\)</span>) of data. If  estimated <span class="math notranslate nohighlight">\(\chi^{2}\)</span> by Eq. <a class="reference internal" href="#equation-chi2">(9)</a> is lower than that tabulated by the distribution, then is accepted of null-hypothesis. That is, the model satisfactorily fit the experimental data.
+<p>and then, the above test statistic is compared to a theoretical value from the <a class="reference external" href="https://www.scribbr.com/statistics/chi-square-distribution-table/">Chi-square distribution</a>. The theoretical value depends on both the alpha value and the degrees of freedom (<span class="math notranslate nohighlight">\(N - k\)</span>) of data. If  estimated <span class="math notranslate nohighlight">\(\chi^{2}\)</span> by Eq. <a class="reference internal" href="#equation-chi2">(9)</a> is lower than that tabulated by the distribution, then the null-hypothesis is accepeted. That is, the model satisfactorily fits the experimental data.
 In addition, models having lower values of <span class="math notranslate nohighlight">\(\chi^{2}\)</span> represents better models.</p>
+<p>The class calculates the Akaike Information Criterion (<strong>AIC</strong>, Eq. <a class="reference internal" href="#equation-aic">(10)</a>), an estimator of prediction error relative to the quality of the statistical models for a given set of data. AIC is founded on information theory. When a statistical model is used to represent the process that generated the data, the representation will almost never be exact; so some information will be lost by using the model to represent the process. AIC estimates the relative amount of information
+lost by a given model: the less information a model loses, the higher the quality of that model.</p>
+<div class="math-wrapper docutils container" id="equation-aic">
+<div class="math notranslate nohighlight" id="equation-aic">
+<span class="eqno">(10)<a class="headerlink" href="#equation-aic" title="Link to this equation">¶</a></span>\[AIC\  = \ 2k - 2ln(L)\]</div>
+</div>
+<p>with  <span class="math notranslate nohighlight">\(k\)</span> = number of parameters and <span class="math notranslate nohighlight">\(ln(L)\)</span> = maximum log-likelihood of the estimated model. The latter, in the case of a nonlinear fit with normally distributed errors, is calculated by:</p>
+<div class="math-wrapper docutils container" id="equation-lnl">
+<div class="math notranslate nohighlight" id="equation-lnl">
+<span class="eqno">(11)<a class="headerlink" href="#equation-lnl" title="Link to this equation">¶</a></span>\[ln(L) = 0.5*\left( - N*\left( ln(2\pi) + 1 - ln(N) + ln\left( \sum_{i = 1}^{N}x_{i}^{2} \right) \right) \right)\]</div>
+</div>
+<p>with <span class="math notranslate nohighlight">\(x_{1},...,x_{N}\)</span> = the residuals from the nonlinear least-squares fit and <span class="math notranslate nohighlight">\(N\)</span> = their number.</p>
+<p>To provide a fair playing ground, we employed an AIC variant that corrects for small sample sizes, the bias-corrected AIC (AICc, Eq. <a class="reference internal" href="#equation-aicc">(12)</a>)</p>
+<div class="math-wrapper docutils container" id="equation-aicc">
+<div class="math notranslate nohighlight" id="equation-aicc">
+<span class="eqno">(12)<a class="headerlink" href="#equation-aicc" title="Link to this equation">¶</a></span>\[AICc\  = \ AIC\  + \ \frac{2k(k + 1)}{N - k - 1}\]</div>
+</div>
+<p>with <span class="math notranslate nohighlight">\(N\)</span> = sample size and <span class="math notranslate nohighlight">\(k\)</span> = number of parameters</p>
 </section>
 <section id="condition-number-and-the-parametric-correlation-matrix">
 <span id="condition-number-and-parmcorrmatrix"></span><h2>Condition number and the parametric correlation matrix<a class="headerlink" href="#condition-number-and-the-parametric-correlation-matrix" title="Link to this heading">¶</a></h2>
@@ -354,21 +372,80 @@ singularity (or determinant equal to zero), making its inversion process impossi
 The calculation of <span class="math notranslate nohighlight">\(\kappa\)</span> can be performed using the <strong>linalg.cond</strong> function from the <strong>numpy</strong> Python module. Mathematically, <span class="math notranslate nohighlight">\(\kappa\)</span> is calculated as follows:</p>
 <div class="math-wrapper docutils container" id="equation-kappa">
 <div class="math notranslate nohighlight" id="equation-kappa">
-<span class="eqno">(10)<a class="headerlink" href="#equation-kappa" title="Link to this equation">¶</a></span>\[\kappa = \frac{S_{\max}}{S_{\min}} = \frac{\sqrt{\lambda_{\max}}}{\sqrt{\lambda_{\min}}}\]</div>
+<span class="eqno">(13)<a class="headerlink" href="#equation-kappa" title="Link to this equation">¶</a></span>\[\kappa = \frac{S_{\max}}{S_{\min}} = \frac{\sqrt{\lambda_{\max}}}{\sqrt{\lambda_{\min}}}\]</div>
 </div>
 <p>where <span class="math notranslate nohighlight">\(\lambda_{max}\)</span> and <span class="math notranslate nohighlight">\(\lambda_{min}\)</span> are the maximum and minimum eigenvalues, whereas <span class="math notranslate nohighlight">\(S_{max}\)</span>, <span class="math notranslate nohighlight">\(S_{min}\)</span> are the singular values of the matrix <span class="math notranslate nohighlight">\(\sigma^{\hat{\beta}}\)</span>, respectively.</p>
 <p>The eigenvalues of <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> is obtained from:</p>
 <div class="math-wrapper docutils container" id="equation-eigenvalues">
 <div class="math notranslate nohighlight" id="equation-eigenvalues">
-<span class="eqno">(11)<a class="headerlink" href="#equation-eigenvalues" title="Link to this equation">¶</a></span>\[det\left\lbrack \left( V^{\widehat{\beta}} \right)\left( V^{\widehat{\beta}} \right)^{T} - \ \lambda I \right\rbrack = 0\]</div>
+<span class="eqno">(14)<a class="headerlink" href="#equation-eigenvalues" title="Link to this equation">¶</a></span>\[det\left\lbrack \left( V^{\widehat{\beta}} \right)\left( V^{\widehat{\beta}} \right)^{T} - \ \lambda I \right\rbrack = 0\]</div>
 </div>
 <p>From <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> is possible to obtain the correlation matrix using the following expression:</p>
 <div class="math-wrapper docutils container" id="equation-correlmatrix">
 <div class="math notranslate nohighlight" id="equation-correlmatrix">
-<span class="eqno">(12)<a class="headerlink" href="#equation-correlmatrix" title="Link to this equation">¶</a></span>\[R_{{i}{j}} = \frac{covar(\widehat{\beta}_i,\widehat{\beta}_j)}{var(\widehat{\beta}_i) var(\widehat{\beta}_j)}\]</div>
+<span class="eqno">(15)<a class="headerlink" href="#equation-correlmatrix" title="Link to this equation">¶</a></span>\[R_{{i}{j}} = \frac{covar(\widehat{\beta}_i,\widehat{\beta}_j)}{var(\widehat{\beta}_i) var(\widehat{\beta}_j)}\]</div>
 </div>
 <p>Unlike <span class="math notranslate nohighlight">\(V^{\hat{\beta}}\)</span> matrix, the elements (<span class="math notranslate nohighlight">\(R_{{i}{j}}\)</span>) of such matrix indicate in a range from 0 to 1 and in sign how the model parameters are correlated.
 That is, it measures the strength and direction of the relationships between two or more parameters</p>
+</section>
+<section id="kalman-filter">
+<span id="id1"></span><h2>Kalman filter<a class="headerlink" href="#kalman-filter" title="Link to this heading">¶</a></h2>
+<p>In the case of <span class="math notranslate nohighlight">\(BS\&amp;W_o\)</span> data obtained on platforms, it is possible that there exists some experimental error caused by noise <em>white noise</em> on sensor readings. In this scenery,
+the Kalman filter is an optimal recursive data processing algorithm that effectively reduces errors and uncertainties from noisy sensor measurements to enhance data stability, minimizing the impact of noise and fluctuations,
+thereby improving the reliability and accuracy of the water quality monitoring proces. Kalman filter is an algorithm which is used to predict (or to estimate) the next result based on the
+previous data.  It is basically an estimator to predict any state or part in the signal which contains signal. The result of the estimation process is similar with eliminating noise from the signal.
+The BSW class uses the standard form of the filter to <a class="reference internal" href="usage.html#carregando-arquivos"><span class="std std-ref">load the data</span></a> , which is based in the following equations:</p>
+<p><span class="math notranslate nohighlight">\(P = E\lbrack e_{k}e_{k}^{T}\rbrack\)</span>;</p>
+<p>Where <span class="math notranslate nohighlight">\((e_{k} = z_{(k)} - {\widehat{x}}_{k})\)</span> and <span class="math notranslate nohighlight">\(P\)</span> is the steady-state covariance between observations <span class="math notranslate nohighlight">\(z_{(k)}\)</span> and estimate <span class="math notranslate nohighlight">\({\widehat{x}}_{k}\)</span></p>
+<div class="math-wrapper docutils container" id="equation-kgain">
+<div class="math notranslate nohighlight" id="equation-kgain">
+<span class="eqno">(16)<a class="headerlink" href="#equation-kgain" title="Link to this equation">¶</a></span>\[K_{(k)} = \frac{P(k - 1) + Q}{P(k - 1) + Q + R}\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> are noise covariance of the process or transition and measurements, respectively. <span class="math notranslate nohighlight">\(K_{(k)}\)</span> is the Kalman gain for time <span class="math notranslate nohighlight">\(k\)</span> .</p>
+<div class="math-wrapper docutils container" id="equation-estk">
+<div class="math notranslate nohighlight" id="equation-estk">
+<span class="eqno">(17)<a class="headerlink" href="#equation-estk" title="Link to this equation">¶</a></span>\[{\widehat{x}}_{k} = {\widehat{x}}_{k - 1} + K_{(k)}\left\{ z_{(k)} - {\widehat{x}}_{k - 1} \right\}\]</div>
+</div>
+<p>Where <span class="math notranslate nohighlight">\({\widehat{x}}_{k}\)</span> is the estimate of state <span class="math notranslate nohighlight">\(k\)</span> based on state <span class="math notranslate nohighlight">\(k-1\)</span>.</p>
+<div class="math-wrapper docutils container" id="equation-estpk">
+<div class="math notranslate nohighlight" id="equation-estpk">
+<span class="eqno">(18)<a class="headerlink" href="#equation-estpk" title="Link to this equation">¶</a></span>\[P(k) = (1\  - \ K_{(k)})P(k - 1)\]</div>
+</div>
+<p>The algorithm starts doing <span class="math notranslate nohighlight">\(P(0) = 1\)</span>, calculating the estimate at <span class="math notranslate nohighlight">\(k = 1\)</span> using Eq. <a class="reference internal" href="#equation-estk">(17)</a> and Eq. <a class="reference internal" href="#equation-kgain">(16)</a>. Then for <span class="math notranslate nohighlight">\(k = 1\)</span> is updated <span class="math notranslate nohighlight">\(P(1)\)</span> by Eq. <a class="reference internal" href="#equation-estpk">(18)</a>.
+This process is recursively repeated for each state <span class="math notranslate nohighlight">\(k\)</span>. The value of <span class="math notranslate nohighlight">\(K_{(k)}\)</span> depends on values of <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span>. Thus, by playing with these covariances it is possible to obtain
+greater or lesser smoothing for the observables. The code snippet implemented in the BSW class shows such iteration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># filtro de kalman implemented by Jurgen Lange - similar results to Pykalman</span>
+<span class="k">def</span> <span class="nf">kalmanfilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">init_state_mean</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># initial parameters</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">n_iter</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">sz</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_iter</span><span class="p">,)</span>  <span class="c1"># size of array</span>
+    <span class="c1"># allocate space for arrays</span>
+    <span class="n">x_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>  <span class="c1"># a posteriori estimate of x</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>  <span class="c1"># a posteriori error estimate</span>
+    <span class="n">x_hat_minus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>  <span class="c1"># a priori estimate of x</span>
+    <span class="n">p_minus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>  <span class="c1"># a priori error estimate</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>  <span class="c1"># gain or blending factor</span>
+
+    <span class="c1"># initial guesses</span>
+    <span class="n">x_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">init_state_mean</span>
+    <span class="n">x_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">init_state_mean</span><span class="p">)</span>
+    <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_iter</span><span class="p">):</span>
+        <span class="c1"># time update</span>
+        <span class="n">x_hat_minus</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_hat</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">p_minus</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Q</span>
+        <span class="c1"># measurement update</span>
+        <span class="n">K</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_minus</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">p_minus</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">R</span><span class="p">)</span>
+        <span class="n">x_hat</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_hat_minus</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">K</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_hat_minus</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">K</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">*</span> <span class="n">p_minus</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">x_hat</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In this version of BSW class, the values of <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span> are the same for all variables (<span class="math notranslate nohighlight">\({BS\&amp;W}_{o}\)</span>, <span class="math notranslate nohighlight">\(T\)</span>, <span class="math notranslate nohighlight">\(E_e\)</span>, <span class="math notranslate nohighlight">\(Q_L\)</span>, <span class="math notranslate nohighlight">\(K_p\)</span>, <span class="math notranslate nohighlight">\(API\)</span>) involving the coalescence. This is an approximation because each variables should have different values of <span class="math notranslate nohighlight">\(Q\)</span> and <span class="math notranslate nohighlight">\(R\)</span></p>
+</div>
 </section>
 </section>
 
@@ -425,6 +502,7 @@ That is, it measures the strength and direction of the relationships between two
 <li><a class="reference internal" href="#estimation-of-confidence-intervals-for-the-parameters">Estimation of confidence intervals for the parameters</a></li>
 <li><a class="reference internal" href="#fitting-criteria-and-statistics">Fitting criteria and statistics</a></li>
 <li><a class="reference internal" href="#condition-number-and-the-parametric-correlation-matrix">Condition number and the parametric correlation matrix</a></li>
+<li><a class="reference internal" href="#kalman-filter">Kalman filter</a></li>
 </ul>
 </li>
 </ul>

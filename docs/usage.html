@@ -307,7 +307,7 @@
 </section>
 <section id="loading-files">
 <span id="carregando-arquivos"></span><h2>Loading files<a class="headerlink" href="#loading-files" title="Link to this heading">¶</a></h2>
-<p>Once a BSW type object has been instantiated, It is then possible to load files with .csv extension using the <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> method belonging to the BSW class</p>
+<p>Once a BSW type object has been instantiated, it is then possible to load a file with .csv extension using the <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> method belonging to this class</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="load_data">
 <span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kalman_filtered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_cov</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_cov</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#load_data" title="Link to this definition">¶</a></dt>
@@ -319,15 +319,15 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> (<em>str</em>) – file name with .csv extension</p></li>
 <li><p><strong>cut</strong> (<em>float</em>) – An optional parameter that represents on a scale from 0 to 1 the cutoff value for splitting the data into training and test sets. By default, the cutoff value=0.0 indicates that the test set is empty and the training and test data are the same.</p></li>
-<li><p><strong>kalman_filtered</strong> – An optional parameter that allows you to use or not use the Kalman filter when fitting the model to the data.</p></li>
+<li><p><strong>kalman_filtered</strong> – An optional parameter that allows you to use or not use the <a class="reference internal" href="theory.html#kalman-filter"><span class="std std-ref">Kalman filter</span></a> when fitting the model to the data.</p></li>
 <li><p><strong>process_cov</strong> – An optional parameter that allows you to give a value to the process covariance during filtering.</p></li>
-<li><p><strong>noise_cov</strong> – An optional parameter that allows you to give a value to the covariance of the measurements during the filtering</p></li>
+<li><p><strong>noise_cov</strong> – An optional parameter that allows you to give a value to the covariance of the measurements during the filtering.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>FileNotFoundError</strong> – if the file is not found</p></li>
-<li><p><strong>csv.Error</strong> – error reading the file</p></li>
+<li><p><strong>FileNotFoundError</strong> – if the file was not found.</p></li>
+<li><p><strong>csv.Error</strong> – when there is an error reading.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -350,50 +350,50 @@ If the Kalman filter is enabled (<strong>kalman_filtered=True</strong>), a file 
 </pre></div>
 </div>
 </div>
-<p>The data file loaded with this method must contain columns in the following order:
+<p>The loaded data file must contain columns in the following order:
 <strong>column (1)</strong> = <span class="math notranslate nohighlight">\({BS\&amp;W}_{o}\)</span>, <strong>column (2)</strong>  = <span class="math notranslate nohighlight">\(E_e\)</span>, <strong>column (3)</strong> = <span class="math notranslate nohighlight">\(T\)</span>, <strong>column (4)</strong> = <span class="math notranslate nohighlight">\(K_p\)</span>, <strong>column (5)</strong> = <span class="math notranslate nohighlight">\(Q_L\)</span>, <strong>column (6)</strong> = Experiment Number, <strong>column (7)</strong>  = Gravity <span class="math notranslate nohighlight">\(API\)</span>.
-The last column can be considered or not by the user in the file. The class during its execution is able to detect the presence of this column and adjust the model considering the API or not.</p>
+The last column can be included or not by the user. The class during its execution is able to detect the presence of this column and adjust the model considering the API or not.</p>
 <figure class="align-default" id="id1">
 <img alt="_images/figura1.jpg" src="_images/figura1.jpg" />
 <figcaption>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Data format in file with ‘.csv’ extension</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>The following code loads a file named <em>all-5-oil.csv</em>. This file in the modeling will not use the Kalman filter to smooth the data. The use of cut=0.1 indicates that the loaded data will be split into 10% for test data and 90%
-for training data. The test data returned by the method can be used as input parameters in the predict method (see method in <a class="reference internal" href="#predict-section"><span class="std std-ref">Model prediction</span></a>). By default cut = 0.0 indicating that the loaded data will not be split
+<p>The following code loads a file named <em>all-5-oil.csv</em> and does not use the Kalman filter to smooth the data. Here, it is used the parameter cut = 0.1, which indicates that the loaded data will be split into 10% for test set and 90%
+for training set. The test set returned by the method can be used as an input parameter in the <a class="reference internal" href="#predict-section"><span class="std std-ref">predict method</span></a>. By default cut = 0.0 indicating that the loaded data will not be split
 into different training and test sets.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">first_simul</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;all-5-oil.csv&#39;</span><span class="p">,</span> <span class="n">kalman_filtered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cut</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here X_test can be used later as a parameter in <a class="reference internal" href="#predict-section"><span class="std std-ref">predict()</span></a> method to see how the model fit to this sets.</p>
+<p>Here X_test can be used later as an input parameter in <a class="reference internal" href="#predict-section"><span class="std std-ref">predict()</span></a> method to see how the model fit to this set.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Since the modeling is based on classical optimization and is not a machine learning method, its prediction outside the training interval should be done with caution. The further away the test point is from the training interval,
+<p>Because of the modeling is based on classical optimization and is not a machine learning method, its prediction outside the training interval should be done with caution. The further away the test point is from the training interval,
 the greater the error will be. Therefore, it is recommended to use high cut values ​​(for instance: <span class="math notranslate nohighlight">\(cut &gt; 0.85\)</span>) to ensure a larger volume of data for training with small test sets with higher prediction accuracy.</p>
 </div>
 </section>
 <section id="fitting-to-data">
 <span id="fitting-section"></span><h2>Fitting to data<a class="headerlink" href="#fitting-to-data" title="Link to this heading">¶</a></h2>
-<p>After the user has loaded the file of interest with the method <a class="reference internal" href="#carregando-arquivos"><span class="std std-ref">load_data()</span></a>, it is then possible to fit the data with the model (equations <a class="reference internal" href="index.html#equation-bsw-and-sac">(1)</a> e <a class="reference internal" href="index.html#equation-sac">(2)</a>). For this purpose, the method
-<code class="docutils literal notranslate"><span class="pre">fit()</span></code> can be used of BSW class.</p>
+<p>Once the user has loaded the file of interest with <a class="reference internal" href="#carregando-arquivos"><span class="std std-ref">load_data()</span></a>, it is then possible to fit the model to the data (Eq <a class="reference internal" href="index.html#equation-bsw-and-sac">(1)</a> and <a class="reference internal" href="index.html#equation-sac">(2)</a>). For this purpose, the method
+<code class="docutils literal notranslate"><span class="pre">fit()</span></code> can be used.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p4</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p5</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p6</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_restriction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'trf'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fit" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>p1</strong> (<em>float</em>) – Initial value of temperature-related parameter (<span class="math notranslate nohighlight">\(\beta_1\)</span>). It is an optional parameter</p></li>
-<li><p><strong>p2</strong> (<em>float</em>) – Initial value of the parameter related to the electric field (<span class="math notranslate nohighlight">\(\beta_2\)</span>). It is an optional parameter</p></li>
-<li><p><strong>p3</strong> (<em>float</em>) – Initial value of the parameter related to the inlet liquid flow rate (<span class="math notranslate nohighlight">\(\beta_4\)</span>). It is an optional parameter</p></li>
-<li><p><strong>p4</strong> (<em>float</em>) – Initial value of the parameter related to the Kp (<span class="math notranslate nohighlight">\(\beta_5\)</span>). It is an optional parameter</p></li>
-<li><p><strong>p5</strong> (<em>float</em>) – Initial value of the parameter related to the pre-exponential term (<span class="math notranslate nohighlight">\(C_1\)</span>) in the model (<a class="reference internal" href="index.html#equation-sac">(2)</a>). It is an optional parameter</p></li>
-<li><p><strong>p6</strong> (<em>float</em>) – Initial value of the parameter  related to API gravity (<span class="math notranslate nohighlight">\(\beta_6\)</span>). It is an optional parameter</p></li>
+<li><p><strong>p1</strong> (<em>float</em>) – Initial value of temperature-related parameter (<span class="math notranslate nohighlight">\(\beta_1\)</span>). It is an optional parameter.</p></li>
+<li><p><strong>p2</strong> (<em>float</em>) – Initial value of the parameter related to the electric field (<span class="math notranslate nohighlight">\(\beta_2\)</span>). It is an optional parameter.</p></li>
+<li><p><strong>p3</strong> (<em>float</em>) – Initial value of the parameter related to the inlet liquid flow rate (<span class="math notranslate nohighlight">\(\beta_4\)</span>). It is an optional parameter.</p></li>
+<li><p><strong>p4</strong> (<em>float</em>) – Initial value of the parameter related to the Kp (<span class="math notranslate nohighlight">\(\beta_5\)</span>). It is an optional parameter.</p></li>
+<li><p><strong>p5</strong> (<em>float</em>) – Initial value of the parameter related to the pre-exponential term (<span class="math notranslate nohighlight">\(C_1\)</span>) in the model (Eq. <a class="reference internal" href="index.html#equation-sac">(2)</a>). It is an optional parameter.</p></li>
+<li><p><strong>p6</strong> (<em>float</em>) – Initial value of the parameter  related to API gravity (<span class="math notranslate nohighlight">\(\beta_6\)</span>). It is an optional parameter.</p></li>
 <li><p><strong>with_restriction</strong> (<em>Boolean</em>) – It is an optional parameter, which indicates by default that the optimization of each of the parameters will be performed with restriction (<a class="reference internal" href="#target-to-code1"><span class="std std-ref">see optimization ranges for each parameter</span></a>).</p></li>
-<li><p><strong>with_method</strong> (<em>str</em>) – It is an optional parameter, which indicates that the optimization of parameters will be performed with the method <strong>trf</strong> (by default). However, you can pass as an alternative method of optimization as <strong>dogbox</strong></p></li>
+<li><p><strong>with_method</strong> (<em>str</em>) – It is an optional parameter indicating that the optimization of parameters will be performed with the method <strong>trf</strong> (by default). However, you can pass as an alternative method of optimization as <strong>dogbox</strong>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>RuntimeError</strong> – It is triggered If there is an error during parameter optimization due to the initial values ​​with ranges used by default.</p>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If there is an error during parameter optimization due to the initial guessess within the ranges used by default.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Nenhum.</p>
@@ -460,7 +460,7 @@ corrected Akaike information criterion, chi-square goodness-of-fit test for mode
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>Pandas dataframe</em>) – Test data to make the prediction. It is an optional parameter. If data=None, the training data is considered to be the same as the test data.</p></li>
+<li><p><strong>data</strong> (<em>Pandas dataframe</em>) – Test set to make the prediction. It is an optional parameter. If data=None, the training set is considered to be the same as the test set, that is all loaded data is used for modeling.</p></li>
 <li><p><strong>plot_exp_data</strong> (<em>Boolean</em>) – Enables you to plot or not the experimental data. It is an optional parameter. If <strong>plot_exp_data is False</strong> then only the filtered data obtained with the Kalman filter are plotted, not the original experimental data.</p></li>
 <li><p><strong>showErr</strong> (<em>Boolean</em>) – Running this method activates the plotting of results showing the confidence bands and the mean prediction of the model assuming that the residuals have a Gaussian distribution.</p></li>
 </ul>
@@ -469,8 +469,8 @@ corrected Akaike information criterion, chi-square goodness-of-fit test for mode
 </dd></dl>
 
 <p>In the case of using the predict() method passing a null test data as a parameter, it will not plot anything and will print a warning indicating
-<strong>!The data used as parameter in predict() method is empty. No plotting of results. Use a value for the cutoff parameter (e.g. 0.1) in load_data() to get a full test set</strong></p>
-<p>For example the following code trigger the above warning</p>
+<strong>!The data used as parameter in predict() method is empty. No plotting results. Use a value for the cutoff parameter (e.g. 0.1) in load_data() to get a full test set</strong></p>
+<p>For example the following code triggers the above warning</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">first_simul</span> <span class="o">=</span> <span class="n">BSW</span><span class="p">()</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">first_simul</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;all-5-oil-with-api.csv&#39;</span><span class="p">,</span> <span class="n">kalman_filtered</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">first_simul</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -481,9 +481,9 @@ corrected Akaike information criterion, chi-square goodness-of-fit test for mode
 <p class="admonition-title">Note</p>
 <p>In the above example, as the <a class="reference internal" href="#carregando-arquivos"><span class="std std-ref">load_data()</span></a> method does not pass a <strong>cut</strong> parameter between 0 and 1, by default it takes cut=0.0 indicating that the data is not split into training and test sets, so that X_test is None.</p>
 </div>
-<p>The following code we load a file named <em>p-66-otra-forma-input-2-without-atypical-values-with-all-values-Kfiltered-without-api.csv</em>, which already contains the filtered data with the Kalman filter. Hence, we will use <strong>kalman_filtered=False</strong> and pass cut=0.3 indicating
-that the data must be split in 30% for test and 70% for training. Then, we fit the model to 70% of data with the fit() method. The prediction on the test set is executed invoking the predict() method passing the test data (X_test) previously obtained with load_data().
-Since the predict() method has <strong>plot_exp_data</strong> and <strong>showEr</strong> equal to <strong>True</strong>, the modeling will be plotted with the experimental data along with the confidence bands and mean prediction of the model (<a class="reference internal" href="#figura5"><span class="std std-numref">Fig. 5</span></a>)</p>
+<p>The following code loads a file named <em>p-66-otra-forma-input-2-without-atypical-values-with-all-values-Kfiltered-without-api.csv</em>, which already contains the filtered data with the Kalman filter. Here, we use <strong>kalman_filtered=False</strong> and pass cut=0.3 indicating
+that the data must be split in 30% for test and 70% for training. Then, we fit the model to 70% of data with the fit() method. The prediction on the test set is executed invoking the predict() method passing the test set (X_test) previously obtained with the load_data().
+Since the predict() method has <strong>plot_exp_data</strong> and <strong>showEr</strong> equal to <strong>True</strong>, the results of modeling (confidence bands and mean prediction of the model (<a class="reference internal" href="#figura5"><span class="std std-numref">Fig. 5</span></a>) will be plotted together with the experimental data.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">second_simul</span> <span class="o">=</span> <span class="n">BSW</span><span class="p">()</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">second_simul</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;p-66-otra-forma-input-2-without-atypical-values-with-all-values-Kfiltered-without-api.csv&#39;</span><span class="p">,</span> <span class="n">kalman_filtered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cut</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 <span class="n">second_simul</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">with_restriction</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
