@@ -6,7 +6,7 @@ Theory
 Derivation of semi-empirical models
 -----------------------------------
 
-The population balance equation with simultaneous aggregation and fragmentation Eq. :eq:`pbe`, for the special case where the constant total number of particles is:
+The population balance equation with simultaneous aggregation and fragmentation Eq. :eq:`pbe` for the special case where the constant total number of particles is:
 
 .. math:: {\frac{\partial n(v,t)}{\partial t} = \left( \frac{1}{2} \right)}\int_{0}^{v}{C(v^{'},{v - v}^{'})n(v^{'},t)n({v - v}^{'},t)d}v^{'} - n(v,t)\int_{0}^{\infty}{C\left( v,v^{'} \right)}n\left( v^{'},t \right)dv^{'}\\ 
 .. math::   + 2\int_{v}^{\infty}{S\left( v^{'} \right)}n\left( v^{'},t \right)\Omega\left( v,v^{'} \right){dv}^{'} - S(v)n(v,t)
@@ -21,7 +21,7 @@ Using an long-time asymptotic solution in steady-state for Eq. :eq:`pbe`, it can
 
 .. math:: n(v) = \left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v \right\}
 
-Where :math:`\frac{2S}{C}` represents the total number of water drops in a given volume into coalescer. By definition :math:`{A}` is the average volume of water drops
+Where :math:`\frac{2S}{C}` represents the total number of water drops in a given volume into coalescer. By definition :math:`{A}` is the average volume of water drops.
 
 Now, considering the series :math:`\sum_{i = 1}^{\infty}{n\left( v_{i} \right)v_{i} = \sum_{i = 1}^{\infty}{v_{i}\left( \frac{2S}{C} \right)\exp\left\{ - \left( \frac{2S}{AC} \right)^{1/2}v_{i} \right\}}}`
 and solving continuously with integrals by parts, we get that:
@@ -40,8 +40,8 @@ The addition of a :math:`{API}` term in this equation is based on other models r
 Estimation of confidence bands in model prediction
 ---------------------------------------------------
 
-The estimation of the confidence bands in model prediction was done using a Gaussian regression of the residuals using the  :ref:`GaussianProcessRegressor <target to code2>` function implemented in the **sklearn.gaussian\_process** module in Python. 
-Using this function, the mean value :math:`{Gauss}_{mean}` and standard deviation :math:`{Gauss}_{stdev}` of these residuals are determined. Then, the confidence interval at each i-th experimental point is given by: :math:`y_{model}^i + {Gauss}_{mean} \mp 1.96\ {Gauss}_{stddev}` 
+The estimation of the confidence bands during model prediction was done using a Gaussian regression of the residuals with the  :ref:`GaussianProcessRegressor <target to code2>` function implemented in the **sklearn.gaussian\_process** module in Python. 
+By means of this function, the mean value :math:`{Gauss}_{mean}` and standard deviation :math:`{Gauss}_{stdev}` of the residuals were determined. Then, the confidence interval at each i-th experimental point is given by: :math:`y_{model}^i + {Gauss}_{mean} \mp 1.96\ {Gauss}_{stddev}` 
 with a confidence level equal to 95%. The mean prediction values ​​of the models are given by  :math:`y_{model}^i + {Gauss}_{mean}`.
 
 .. _target to code2:
@@ -91,7 +91,7 @@ value ​​of the two-tailed *t*-student distribution with :math:`N-k` degrees 
 Fitting criteria and statistics
 -------------------------------
 
-To estimate the parameters in the model was used the minimization of the mean square of differences between experimental values of :math:`{BS\& W}_{o}` and those calculated by the model (Eq. :eq:`FF`). The Newton method with trust region (**trf**) function will be used to minimize :math:`FF`. **trf** is a robust approach for convergence of estimated parameters regardless of how good the initial guess is. 
+In order to estimate the parameters in the model was used the minimization of mean square error between predicted and observed values (Eq. :eq:`FF`). The Newton method with trust region (**trf**) function is used by default to minimize :math:`FF` in the :ref:`fitting process <fitting-section>`. **trf** is a robust approach for convergence of estimated parameters regardless of how good the initial guess is. 
 It is appropriately called a model trust region approach in that the step to a new iterate is obtained by minimizing a local quadratic model to the objective function over a restricted ellipsoidal region centered about the current iterate. The diameter of this region is expanded and contracted in a controlled way based upon how well the local model predicts behavior of the objective function. 
 It is possible to control the iteration in this way so that convergence is forced from any starting value assuming reasonable conditions on the objective function
 
@@ -119,10 +119,28 @@ A test used here to see how well the model fits the data is the chi-square goodn
 .. math:: \chi^{2} = \sum_{i = 1}^{N}\frac{{(O_{i} - E_{i})}^{2}}{E_{i}}
    :label: chi2
 
-and then, the above test statistic is compared to a theoretical value from the `Chi-square distribution <https://www.scribbr.com/statistics/chi-square-distribution-table/>`_. The theoretical value depends on both the alpha value and the degrees of freedom (:math:`N - k`) of data. If  estimated :math:`\chi^{2}` by Eq. :eq:`chi2` is lower than that tabulated by the distribution, then is accepted of null-hypothesis. That is, the model satisfactorily fit the experimental data. 
+and then, the above test statistic is compared to a theoretical value from the `Chi-square distribution <https://www.scribbr.com/statistics/chi-square-distribution-table/>`_. The theoretical value depends on both the alpha value and the degrees of freedom (:math:`N - k`) of data. If  estimated :math:`\chi^{2}` by Eq. :eq:`chi2` is lower than that tabulated by the distribution, then the null-hypothesis is accepeted. That is, the model satisfactorily fits the experimental data. 
 In addition, models having lower values of :math:`\chi^{2}` represents better models.
 
+The class calculates the Akaike Information Criterion (**AIC**, Eq. :eq:`AIC`), an estimator of prediction error relative to the quality of the statistical models for a given set of data. AIC is founded on information theory. When a statistical model is used to represent the process that generated the data, the representation will almost never be exact; so some information will be lost by using the model to represent the process. AIC estimates the relative amount of information 
+lost by a given model: the less information a model loses, the higher the quality of that model.
 
+.. math:: AIC\  = \ 2k - 2ln(L)
+  :label: AIC
+
+with  :math:`k` = number of parameters and :math:`ln(L)` = maximum log-likelihood of the estimated model. The latter, in the case of a nonlinear fit with normally distributed errors, is calculated by:
+
+.. math:: ln(L) = 0.5*\left( - N*\left( ln(2\pi) + 1 - ln(N) + ln\left( \sum_{i = 1}^{N}x_{i}^{2} \right) \right) \right)
+  :label: lnL
+
+with :math:`x_{1},...,x_{N}` = the residuals from the nonlinear least-squares fit and :math:`N` = their number.
+
+To provide a fair playing ground, we employed an AIC variant that corrects for small sample sizes, the bias-corrected AIC (AICc, Eq. :eq:`AICc`)
+
+.. math:: AICc\  = \ AIC\  + \ \frac{2k(k + 1)}{N - k - 1}
+  :label: AICc
+
+with :math:`N` = sample size and :math:`k` = number of parameters
 
 .. _Condition number and parmcorrmatrix:
 
@@ -151,3 +169,74 @@ From :math:`V^{\hat{\beta}}` is possible to obtain the correlation matrix using 
 
 Unlike :math:`V^{\hat{\beta}}` matrix, the elements (:math:`R_{{i}{j}}`) of such matrix indicate in a range from 0 to 1 and in sign how the model parameters are correlated. 
 That is, it measures the strength and direction of the relationships between two or more parameters
+
+.. _Kalman filter:
+
+Kalman filter
+-------------
+
+In the case of :math:`BS\&W_o` data obtained on platforms, it is possible that there exists some experimental error caused by noise *white noise* on sensor readings. In this scenery, 
+the Kalman filter is an optimal recursive data processing algorithm that effectively reduces errors and uncertainties from noisy sensor measurements to enhance data stability, minimizing the impact of noise and fluctuations, 
+thereby improving the reliability and accuracy of the water quality monitoring proces. Kalman filter is an algorithm which is used to predict (or to estimate) the next result based on the
+previous data.  It is basically an estimator to predict any state or part in the signal which contains signal. The result of the estimation process is similar with eliminating noise from the signal. 
+The BSW class uses the standard form of the filter to :ref:`load the data <carregando-arquivos>` , which is based in the following equations:
+
+:math:`P = E\lbrack e_{k}e_{k}^{T}\rbrack`;
+
+Where :math:`(e_{k} = z_{(k)} - {\widehat{x}}_{k})` and :math:`P` is the steady-state covariance between observations :math:`z_{(k)}` and estimate :math:`{\widehat{x}}_{k}`
+
+.. math:: K_{(k)} = \frac{P(k - 1) + Q}{P(k - 1) + Q + R}
+  :label: kgain
+
+
+Where :math:`Q` and :math:`R` are noise covariance of the process or transition and measurements, respectively. :math:`K_{(k)}` is the Kalman gain for time :math:`k` .
+
+.. math:: {\widehat{x}}_{k} = {\widehat{x}}_{k - 1} + K_{(k)}\left\{ z_{(k)} - {\widehat{x}}_{k - 1} \right\} 
+  :label: estk
+ 
+Where :math:`{\widehat{x}}_{k}` is the estimate of state :math:`k` based on state :math:`k-1`.
+
+.. math:: P(k) = (1\  - \ K_{(k)})P(k - 1) 
+  :label: estpk
+
+The algorithm starts doing :math:`P(0) = 1`, calculating the estimate at :math:`k = 1` using Eq. :eq:`estk` and Eq. :eq:`kgain`. Then for :math:`k = 1` is updated :math:`P(1)` by Eq. :eq:`estpk`.
+This process is recursively repeated for each state :math:`k`. The value of :math:`K_{(k)}` depends on values of :math:`Q` and :math:`R`. Thus, by playing with these covariances it is possible to obtain
+greater or lesser smoothing for the observables. The code snippet implemented in the BSW class shows such iteration. 
+
+.. code-block:: python
+
+    # filtro de kalman implemented by Jurgen Lange - similar results to Pykalman
+    def kalmanfilter(self, y, init_state_mean, Q=1e-5, R=0.1 ** 2):
+        # initial parameters
+        z = y.values
+        n_iter = len(z)
+        sz = (n_iter,)  # size of array
+        # allocate space for arrays
+        x_hat = np.zeros(sz)  # a posteriori estimate of x
+        P = np.zeros(sz)  # a posteriori error estimate
+        x_hat_minus = np.zeros(sz)  # a priori estimate of x
+        p_minus = np.zeros(sz)  # a priori error estimate
+        K = np.zeros(sz)  # gain or blending factor
+
+        # initial guesses
+        x_hat[0] = init_state_mean
+        x_hat[0] = np.squeeze(init_state_mean)
+        P[0] = 1.0
+        for k in range(1, n_iter):
+            # time update
+            x_hat_minus[k] = x_hat[k - 1]
+            p_minus[k] = P[k - 1] + Q
+            # measurement update
+            K[k] = p_minus[k] / (p_minus[k] + R)
+            x_hat[k] = x_hat_minus[k] + K[k] * (z[k] - x_hat_minus[k])
+            P[k] = (1 - K[k]) * p_minus[k]
+        return x_hat
+
+
+.. warning::
+   In this version of BSW class, the values of :math:`Q` and :math:`R` are the same for all variables (:math:`{BS\&W}_{o}`, :math:`T`, :math:`E_e`, :math:`Q_L`, :math:`K_p`, :math:`API`) involving the coalescence. This is an approximation because each variables should have different values of :math:`Q` and :math:`R`
+
+
+
+
+

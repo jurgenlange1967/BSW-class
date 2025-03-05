@@ -9,7 +9,7 @@ Welcome to BSW class documentation!
 
 The  **BSW-class** aims to simulate the water content in oil at the outlet (:math:`{BS\&W}_{o}`) of an electrostatic coalescer based on the operating variables: 
 Temperature (:math:`T`), electric field (:math:`E_e`), liquid inlet flow rate (:math:`Q_L`) and free as: ratio between oil viscosity and the difference between the oil and water phases (:math:`K_p`), 
-gravity of oil (:math:`API`), concentration of asphaltenes and resins in the emulsion (:math:`C(asf + resinas)`). The :ref:`phenomenologic model <DerivationModels>` used is as follows: 
+gravity of oil (:math:`API`), concentration of asphaltenes and resins in the emulsion (:math:`C(asf + resinas)`). The :ref:`phenomenological model <DerivationModels>` used is as follows: 
 
 .. math:: {BS\&W}_{o}=\frac{C_1exp\left(\frac{2S}{AC}\right)^{1/2}}{\left(\frac{2S}{AC}\right)^{1/2}\left\{1+\left(\frac{AC}{2S}\right)^{1/2}\right\}}+\beta_{6}API
   :label: bsw_and_sac

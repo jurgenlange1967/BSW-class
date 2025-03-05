@@ -63,7 +63,7 @@ The following code creates a first_simul object of type BSW in the main.py
 Loading files
 -------------
 
-Once a BSW type object has been instantiated, It is then possible to load files with .csv extension using the ``load_data()`` method belonging to the BSW class
+Once a BSW type object has been instantiated, it is then possible to load a file with .csv extension using the ``load_data()`` method belonging to this class
 
 .. py:function:: load_data(value, cut=0.0, kalman_filtered=True, process_cov=1e-5, noise_cov=0.01)
 
@@ -71,15 +71,15 @@ Once a BSW type object has been instantiated, It is then possible to load files 
 
    :param value: file name with .csv extension
    :type value: str
-   :raise FileNotFoundError: if the file is not found
-   :raise csv.Error: error reading the file
+   :raise FileNotFoundError: if the file was not found.
+   :raise csv.Error: when there is an error reading.
    :param cut: An optional parameter that represents on a scale from 0 to 1 the cutoff value for splitting the data into training and test sets. By default, the cutoff value=0.0 indicates that the test set is empty and the training and test data are the same.
    :type cut: float
-   :param kalman_filtered: An optional parameter that allows you to use or not use the Kalman filter when fitting the model to the data.
+   :param kalman_filtered: An optional parameter that allows you to use or not use the :ref:`Kalman filter <Kalman filter>` when fitting the model to the data.
    :type cut: Boolean 
    :param process_cov: An optional parameter that allows you to give a value to the process covariance during filtering. 
    :type cut: float
-   :param noise_cov: An optional parameter that allows you to give a value to the covariance of the measurements during the filtering
+   :param noise_cov: An optional parameter that allows you to give a value to the covariance of the measurements during the filtering.
    :type cut: float    
    :return: self._data_train, self._data_test.
    :rtype: Pandas dataframe, Pandas dataframe
@@ -95,55 +95,55 @@ Once a BSW type object has been instantiated, It is then possible to load files 
     File_Name_temp = File_Name_temp + '_filtered.csv'
     self.df_filtered.to_csv(File_Name_temp, header=False, index=False)
 
-The data file loaded with this method must contain columns in the following order: 
+The loaded data file must contain columns in the following order: 
 **column (1)** = :math:`{BS\&W}_{o}`, **column (2)**  = :math:`E_e`, **column (3)** = :math:`T`, **column (4)** = :math:`K_p`, **column (5)** = :math:`Q_L`, **column (6)** = Experiment Number, **column (7)**  = Gravity :math:`API`.
-The last column can be considered or not by the user in the file. The class during its execution is able to detect the presence of this column and adjust the model considering the API or not.
+The last column can be included or not by the user. The class during its execution is able to detect the presence of this column and adjust the model considering the API or not.
 
 .. figure:: ./figura1.jpg
    
    Data format in file with '.csv' extension 
 
-The following code loads a file named *all-5-oil.csv*. This file in the modeling will not use the Kalman filter to smooth the data. The use of cut=0.1 indicates that the loaded data will be split into 10% for test data and 90% 
-for training data. The test data returned by the method can be used as input parameters in the predict method (see method in :ref:`Predict_section`). By default cut = 0.0 indicating that the loaded data will not be split 
+The following code loads a file named *all-5-oil.csv* and does not use the Kalman filter to smooth the data. Here, it is used the parameter cut = 0.1, which indicates that the loaded data will be split into 10% for test set and 90% 
+for training set. The test set returned by the method can be used as an input parameter in the :ref:`predict method <Predict_section>`. By default cut = 0.0 indicating that the loaded data will not be split 
 into different training and test sets.
 
 .. code-block:: python
 
    X_train, X_test = first_simul.load_data('all-5-oil.csv', kalman_filtered=False, cut=0.1)
 
-Here X_test can be used later as a parameter in :ref:`predict() <Predict_section>` method to see how the model fit to this sets.
+Here X_test can be used later as an input parameter in :ref:`predict() <Predict_section>` method to see how the model fit to this set.
 
 .. warning::
-   Since the modeling is based on classical optimization and is not a machine learning method, its prediction outside the training interval should be done with caution. The further away the test point is from the training interval, 
+   Because of the modeling is based on classical optimization and is not a machine learning method, its prediction outside the training interval should be done with caution. The further away the test point is from the training interval, 
    the greater the error will be. Therefore, it is recommended to use high cut values ​​(for instance: :math:`cut > 0.85`) to ensure a larger volume of data for training with small test sets with higher prediction accuracy.  
 
 
 .. _fitting-section:
 
 Fitting to data
--------------------------------
+----------------
 
-After the user has loaded the file of interest with the method :ref:`load_data() <carregando-arquivos>`, it is then possible to fit the data with the model (equations :eq:`bsw_and_sac` e :eq:`sac`). For this purpose, the method 
-``fit()`` can be used of BSW class.
+Once the user has loaded the file of interest with :ref:`load_data() <carregando-arquivos>`, it is then possible to fit the model to the data (Eq :eq:`bsw_and_sac` and :eq:`sac`). For this purpose, the method 
+``fit()`` can be used.
 
 .. py:function:: fit(p1=0.5, p2=0.4, p3=-0.4, p4=-0.2, p5=0.5, p6=-0.5, with_restriction=True, with_method='trf')
 
-   :param p1: Initial value of temperature-related parameter (:math:`\beta_1`). It is an optional parameter
+   :param p1: Initial value of temperature-related parameter (:math:`\beta_1`). It is an optional parameter.
    :type p1: float
-   :param p2: Initial value of the parameter related to the electric field (:math:`\beta_2`). It is an optional parameter
+   :param p2: Initial value of the parameter related to the electric field (:math:`\beta_2`). It is an optional parameter.
    :type p2: float
-   :param p3: Initial value of the parameter related to the inlet liquid flow rate (:math:`\beta_4`). It is an optional parameter
+   :param p3: Initial value of the parameter related to the inlet liquid flow rate (:math:`\beta_4`). It is an optional parameter.
    :type p3: float
-   :param p4: Initial value of the parameter related to the Kp (:math:`\beta_5`). It is an optional parameter
+   :param p4: Initial value of the parameter related to the Kp (:math:`\beta_5`). It is an optional parameter.
    :type p4: float
-   :param p5: Initial value of the parameter related to the pre-exponential term (:math:`C_1`) in the model (:eq:`sac`). It is an optional parameter
+   :param p5: Initial value of the parameter related to the pre-exponential term (:math:`C_1`) in the model (Eq. :eq:`sac`). It is an optional parameter.
    :type p5: float
-   :param p6: Initial value of the parameter  related to API gravity (:math:`\beta_6`). It is an optional parameter
+   :param p6: Initial value of the parameter  related to API gravity (:math:`\beta_6`). It is an optional parameter.
    :type p6: float
-   :raise RuntimeError: It is triggered If there is an error during parameter optimization due to the initial values ​​with ranges used by default.
+   :raise RuntimeError: If there is an error during parameter optimization due to the initial guessess within the ranges used by default.
    :param with_restriction: It is an optional parameter, which indicates by default that the optimization of each of the parameters will be performed with restriction (:ref:`see optimization ranges for each parameter <target to code1>`). 
    :type with_restriction: Boolean
-   :param with_method: It is an optional parameter, which indicates that the optimization of parameters will be performed with the method **trf** (by default). However, you can pass as an alternative method of optimization as **dogbox** 
+   :param with_method: It is an optional parameter indicating that the optimization of parameters will be performed with the method **trf** (by default). However, you can pass as an alternative method of optimization as **dogbox**. 
    :type with_method: str
    :return: Nenhum.
 
@@ -208,7 +208,7 @@ Once the model has been fitted to the data with the :ref:`fit() <fitting-section
 
 .. py:function:: predict(data=None, plot_exp_data=True, showErr=True)
 
-   :param data: Test data to make the prediction. It is an optional parameter. If data=None, the training data is considered to be the same as the test data.
+   :param data: Test set to make the prediction. It is an optional parameter. If data=None, the training set is considered to be the same as the test set, that is all loaded data is used for modeling.
    :type data: Pandas dataframe
    :param plot_exp_data: Enables you to plot or not the experimental data. It is an optional parameter. If **plot_exp_data is False** then only the filtered data obtained with the Kalman filter are plotted, not the original experimental data.
    :type plot_exp_data: Boolean
@@ -217,9 +217,9 @@ Once the model has been fitted to the data with the :ref:`fit() <fitting-section
 
 
 In the case of using the predict() method passing a null test data as a parameter, it will not plot anything and will print a warning indicating
-**!The data used as parameter in predict() method is empty. No plotting of results. Use a value for the cutoff parameter (e.g. 0.1) in load_data() to get a full test set**
+**!The data used as parameter in predict() method is empty. No plotting results. Use a value for the cutoff parameter (e.g. 0.1) in load_data() to get a full test set**
 
-For example the following code trigger the above warning 
+For example the following code triggers the above warning 
 
 .. code-block:: python
    
@@ -231,9 +231,9 @@ For example the following code trigger the above warning
 .. note::
    In the above example, as the :ref:`load_data() <carregando-arquivos>` method does not pass a **cut** parameter between 0 and 1, by default it takes cut=0.0 indicating that the data is not split into training and test sets, so that X_test is None. 
 
-The following code we load a file named *p-66-otra-forma-input-2-without-atypical-values-with-all-values-Kfiltered-without-api.csv*, which already contains the filtered data with the Kalman filter. Hence, we will use **kalman_filtered=False** and pass cut=0.3 indicating 
-that the data must be split in 30% for test and 70% for training. Then, we fit the model to 70% of data with the fit() method. The prediction on the test set is executed invoking the predict() method passing the test data (X_test) previously obtained with load_data(). 
-Since the predict() method has **plot_exp_data** and **showEr** equal to **True**, the modeling will be plotted with the experimental data along with the confidence bands and mean prediction of the model (:numref:`figura5`)
+The following code loads a file named *p-66-otra-forma-input-2-without-atypical-values-with-all-values-Kfiltered-without-api.csv*, which already contains the filtered data with the Kalman filter. Here, we use **kalman_filtered=False** and pass cut=0.3 indicating 
+that the data must be split in 30% for test and 70% for training. Then, we fit the model to 70% of data with the fit() method. The prediction on the test set is executed invoking the predict() method passing the test set (X_test) previously obtained with the load_data(). 
+Since the predict() method has **plot_exp_data** and **showEr** equal to **True**, the results of modeling (confidence bands and mean prediction of the model (:numref:`figura5`) will be plotted together with the experimental data. 
 
 
 .. code-block:: python
